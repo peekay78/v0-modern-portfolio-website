@@ -1,3 +1,7 @@
+"use client"
+
+import Image from "next/image"
+
 export function About() {
   return (
     <section id="about" className="relative w-full py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
@@ -7,6 +11,19 @@ export function About() {
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="flex items-center justify-center">
+            <div className="relative w-64 h-80 rounded-xl overflow-hidden shadow-lg">
+              <Image
+                src="/profile.jpg"
+                alt="Priyanshu Kumar"
+                width={300}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </div>
+          </div>
+
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
               I'm Priyanshu Kumar, a Computer Science student at VIT Chennai, passionate about developing modern web
@@ -29,7 +46,10 @@ export function About() {
               </div>
             </div>
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
+          <div></div>
           <div className="space-y-6">
             <div className="text-sm font-semibold text-primary uppercase tracking-wider">Education</div>
             <div className="space-y-6">

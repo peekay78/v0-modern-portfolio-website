@@ -1,82 +1,7 @@
 "use client"
-
-import { useEffect, useRef } from "react"
 import Link from "next/link"
 
 export function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-    canvas.width = canvas.offsetWidth
-    canvas.height = canvas.offsetHeight
-
-    let animationId: number
-    let time = 0
-
-    const drawGradientSphere = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      const centerX = canvas.width / 2
-      const centerY = canvas.height / 2
-      const radius = Math.min(canvas.width, canvas.height) * 0.2
-
-      time += 0.01
-
-      // Create gradient
-      const gradient = ctx.createRadialGradient(centerX - 30, centerY - 30, 0, centerX, centerY, radius * 1.5)
-
-      // Blue to pink gradient
-      gradient.addColorStop(0, "#6366f1")
-      gradient.addColorStop(0.5, "#ec4899")
-      gradient.addColorStop(1, "#ef4444")
-
-      // Draw rotating ring
-      ctx.save()
-      ctx.translate(centerX, centerY)
-      ctx.rotate(time)
-
-      ctx.strokeStyle = gradient
-      ctx.lineWidth = 15
-      ctx.beginPath()
-      ctx.arc(0, 0, radius, 0, Math.PI * 2)
-      ctx.stroke()
-
-      ctx.restore()
-
-      // Draw glow effect
-      const glowGradient = ctx.createRadialGradient(centerX, centerY, radius * 0.5, centerX, centerY, radius * 2)
-      glowGradient.addColorStop(0, "rgba(99, 102, 241, 0.1)")
-      glowGradient.addColorStop(1, "rgba(99, 102, 241, 0)")
-
-      ctx.fillStyle = glowGradient
-      ctx.beginPath()
-      ctx.arc(centerX, centerY, radius * 2, 0, Math.PI * 2)
-      ctx.fill()
-
-      animationId = requestAnimationFrame(drawGradientSphere)
-    }
-
-    drawGradientSphere()
-
-    const handleResize = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-
-    window.addEventListener("resize", handleResize)
-
-    return () => {
-      cancelAnimationFrame(animationId)
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
-
   return (
     <section className="relative w-full min-h-screen bg-gradient-to-b from-background via-background to-muted/20 overflow-hidden">
       {/* Navigation */}
@@ -175,16 +100,8 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Side - 3D Canvas */}
-          <div className="relative h-96 lg:h-[500px] animate-in fade-in slide-in-from-right duration-1000">
-            <canvas
-              ref={canvasRef}
-              className="w-full h-full rounded-2xl animate-glow"
-              style={{
-                boxShadow: "0 0 60px rgba(99, 102, 241, 0.2), 0 0 120px rgba(239, 68, 68, 0.1)",
-              }}
-            />
-          </div>
+          {/* Right Side - Animated Canvas */}
+          <div className="relative h-96 lg:h-[500px]" />
         </div>
 
         {/* Scroll Indicator */}
